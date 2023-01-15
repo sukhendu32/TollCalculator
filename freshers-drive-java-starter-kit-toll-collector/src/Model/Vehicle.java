@@ -52,13 +52,11 @@ public class Vehicle {
 		return "Vehicle [v=" + v + ", amount=" + amount + ", count=" + count + "]";
 	}
 
-
 	
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, count, v);
+		return Objects.hash(v);
 	}
 
 
@@ -71,9 +69,14 @@ public class Vehicle {
 		if (getClass() != obj.getClass())
 			return false;
 		Vehicle other = (Vehicle) obj;
-		return Objects.equals(amount, other.amount) && Objects.equals(count, other.count) && v == other.v;
+		return v == other.v;
 	}
 
+
+	
+
+
+	
 
 	
 	

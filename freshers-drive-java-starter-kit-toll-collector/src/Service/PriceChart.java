@@ -8,7 +8,7 @@ import emums.vehicle;
 public class PriceChart {
 	
 	
-	
+	//storing price of vehicle with their charges
 	public static Map<vehicle, Integer> price() {
 		
 		 Map<vehicle, Integer> vp=new HashMap<>();

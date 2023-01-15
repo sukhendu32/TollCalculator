@@ -1,6 +1,7 @@
 package Service;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -11,10 +12,9 @@ import emums.vehicle;
 
 public class Tollbooth {
 
-	// registering different vehicle with their count and amount
-	private static Set<Vehicle> allvehicle = new TreeSet<>(new SortingLogic());
-	// checking if the vehicle passed twise to give discount
-	private static Map<String, Boolean> checkVehicle = new HashMap<>();
+
+	private static Set<Vehicle> allvehicle = new HashSet<>();
+	private static Map<String, Boolean> checkVehicle = new HashMap<>(); // check for round trip
 
 	
 	//collecting amount and registering vehicles in the above set and map
@@ -22,20 +22,20 @@ public class Tollbooth {
          
 		
 		boolean flag = true;//check for cash payment
-		Integer amount = PriceChart.price().get(v);
+		Integer amount = PriceChart.price().get(v);//grting price of vehicles
 
 		
-		//checking for discount condition i.e-vehicle has passed twise and has visited earlier
+		
 		if (checkVehicle.containsKey(vehicleNumber) && checkVehicle.get(vehicleNumber)) {
 
 			amount = amount / 2; //discount
-			Payment.setDiscount(Payment.getDiscount() + amount);
+			Payment.setDiscount(Payment.getDiscount() + amount);//discount added in payment class
 			boolean cashPay = makePayment(amount, v, vehicleNumber);
 
 			checkVehicle.put(vehicleNumber, false);
 
 			if (cashPay)
-				amount = amount + 40;//cash payment flat fee added in amount
+				amount = amount + 40;//cash payment flat fee added in amount if flag is true
 
 		} else {
 
@@ -48,8 +48,8 @@ public class Tollbooth {
 
 		
 		
-		//registering the vehicle and updating count and amount
-		for (Vehicle veh : allvehicle) {
+	
+		for (Vehicle veh : allvehicle) {//all vehicles adding with amount and count
 
 			if (veh.getV() == v) {
 
@@ -63,12 +63,12 @@ public class Tollbooth {
 			}
 
 		}
-          //if the vehicle is not earlier registerd then registering as a new vehicle 
+          
 		if (flag) {
 
 			Vehicle veh = new Vehicle(v, amount, 1);
 			allvehicle.add(veh);
-
+           
 		}
 
 	}
@@ -104,7 +104,7 @@ public class Tollbooth {
 
 		}
 
-		return cashPay;
+		return cashPay; //return true if cash payment is made 
 
 	}
 
